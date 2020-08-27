@@ -10,7 +10,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
-
 import '../podo/category.dart';
 import '../providers/home_provider.dart';
 import '../helper/constants.dart';
@@ -21,29 +20,28 @@ import '../widgets/book_list_item.dart';
 import '../widgets/book_card.dart';
 import '../widgets/spotlight.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   //create controller untuk tabBar
   TabController controller;
 
   @override
-
-  void initState(){
+  void initState() {
     controller = new TabController(vsync: this, length: 4);
     //tambahkan SingleTickerProviderStateMikin pada class _HomeState
     super.initState();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -66,7 +64,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         ),
         backgroundColor: Colors.blue[900],
 
-
         actions: <Widget>[
 //          new Image.asset('assets/images/logohome.png', width: 250.0,),
           IconButton(
@@ -79,7 +76,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             icon: Icon(Icons.account_balance_wallet, color: Colors.white),
           ),
         ],
-
 
         //bottom
 //        bottom: new TabBar(
@@ -130,10 +126,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   child: Text("HIBURAN"),
                 ),
               ),
-            ]
-        ),
+            ]),
       ),
-
 
 //    )
 
@@ -152,7 +146,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           //new music.Music(),
         ],
       ),
-
     );
   }
 }
