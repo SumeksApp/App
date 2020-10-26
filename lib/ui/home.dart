@@ -104,27 +104,39 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             tabs: [
               Tab(
                 child: Align(
-                  alignment: Alignment.center,
-                  child: Text("BERITA"),
-                ),
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      child: Text(
+                        "BERITA",
+                      ),
+                    )),
               ),
               Tab(
                 child: Align(
-                  alignment: Alignment.center,
-                  child: Text("CERITA"),
-                ),
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      child: Text(
+                        "CERITA",
+                      ),
+                    )),
               ),
               Tab(
                 child: Align(
-                  alignment: Alignment.center,
-                  child: Text("IKLAN"),
-                ),
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      child: Text(
+                        "IKLAN",
+                      ),
+                    )),
               ),
               Tab(
                 child: Align(
-                  alignment: Alignment.center,
-                  child: Text("HIBURAN"),
-                ),
+                    alignment: Alignment.center,
+                    child: FittedBox(
+                      child: Text(
+                        "HIBURAN",
+                      ),
+                    )),
               ),
             ]),
       ),

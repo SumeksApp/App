@@ -12,7 +12,6 @@ class SharedPref {
     prefs.setString(key, json.encode(value));
   }
 
-
   saveString(String key, String value) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);

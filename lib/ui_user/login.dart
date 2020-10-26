@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:classic_flutter_news/helper/constants.dart';
 import 'package:classic_flutter_news/ui_user/forgot.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../providers/home_provider.dart';
 import '../helper/validator.dart';
 import '../model/user_data.dart';
@@ -143,7 +141,6 @@ class _LoginPageState extends State<LoginPage> {
             onSaved: (String value) {
               _loginData.password = value;
             }),
-
         new Padding(
           padding: EdgeInsets.symmetric(vertical: 16.0),
           child: RaisedButton(
