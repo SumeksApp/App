@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
 
 import '../podo/category.dart';
 import '../providers/home_provider.dart';
@@ -15,7 +13,6 @@ import '../widgets/book_list_item.dart';
 import '../widgets/book_card.dart';
 import '../widgets/spotlight.dart';
 
-
 class Hiburan extends StatelessWidget {
   @override
 //  _HomeState createState() => _HomeState();
@@ -23,7 +20,6 @@ class Hiburan extends StatelessWidget {
     return Consumer<HomeProvider>(
       builder: (BuildContext context, HomeProvider homeProvider, Widget child) {
         return Scaffold(
-
 //          body: Column(
 //            children:  <Widget>[
 //            Container(
@@ -35,72 +31,63 @@ class Hiburan extends StatelessWidget {
 
           body: homeProvider.loading
               ? Center(
-            child: CircularProgressIndicator(),
-          )
+                  child: CircularProgressIndicator(),
+                )
               : RefreshIndicator(
-            onRefresh: () => homeProvider.getFeeds(),
-            child: ListView(
-              children: <Widget>[
+                  onRefresh: () => homeProvider.getFeeds(),
+                  child: ListView(
+                    children: <Widget>[
 //                getSearchBarUI(context),
 
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Tayang Sebentar Lagi",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "Tayang Sebentar Lagi",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      GridView.builder(
+                        padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                        shrinkWrap: true,
+                        physics: new NeverScrollableScrollPhysics(),
+                        itemCount: 4,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 1.0,
+                        ),
+                        itemBuilder: (BuildContext context, int index) {
+                          Entry entry = homeProvider.trends.feed.entry[index];
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                            child: SpotLight(
+                              img: entry.coverImage,
+                              title: entry.title,
+                              entry: entry,
+                            ),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 5,
                       ),
                     ],
                   ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      stops: [0.015, 0.015],
-                      colors: [
-                        Color.fromRGBO(209, 2, 99, 1),
-                        Theme.of(context).backgroundColor
-                      ],
-                    ),
-                  ),
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                GridView.builder(
-                  padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                  shrinkWrap: true,
-                  physics: new NeverScrollableScrollPhysics(),
-                  itemCount: 4,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 1.0,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    Entry entry = homeProvider.trends.feed.entry[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      child: SpotLight(
-                        img: entry.coverImage,
-                        title: entry.title,
-                        entry: entry,
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-              ],
-            ),
-          ),
         );
       },
     );
@@ -173,21 +160,21 @@ class Hiburan extends StatelessWidget {
                   FocusScope.of(context).requestFocus(FocusNode());
                   _txtSearch.text.isEmpty
                       ? Fluttertoast.showToast(
-                    msg:
-                    "You just perform an empty search so we had nothing to show you.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    timeInSecForIosWeb: 5,
-                  )
+                          msg:
+                              "You just perform an empty search so we had nothing to show you.",
+                          toastLength: Toast.LENGTH_SHORT,
+                          timeInSecForIosWeb: 5,
+                        )
                       : Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: Genre(
-                        title: "Search Result",
-                        url: Api.searchUrl + _txtSearch.text,
-                      ),
-                    ),
-                  );
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: Genre(
+                              title: "Search Result",
+                              url: Api.searchUrl + _txtSearch.text,
+                            ),
+                          ),
+                        );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

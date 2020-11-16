@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
-
 import '../podo/category.dart';
 import '../providers/details_provider.dart';
 import '../providers/favorites_provider.dart';

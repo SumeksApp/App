@@ -8,6 +8,9 @@ import 'ui/splash.dart';
 import 'helper/constants.dart';
 import 'ui_user/login.dart';
 import 'ui/splash_screen.dart';
+import 'ui/explore/book.dart' as book;
+import 'ui/explore/magazine.dart' as magazine;
+import 'ui/explore/newspaper.dart' as newspaper;
 
 void main() {
   runApp(

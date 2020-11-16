@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:classic_flutter_news/ui/explore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/custom_alert_dialog.dart';
 import '../helper/Constants.dart';
 import '../providers/favorites_provider.dart';
+import 'explore.dart';
 import 'iklanbaris.dart';
 import 'hasilkan.dart';
 import 'iklanbisnis.dart';
@@ -16,8 +18,7 @@ import 'favorites.dart';
 import 'settings.dart';
 import 'cerita.dart';
 
-
-class MainActivity extends StatefulWidget{
+class MainActivity extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
@@ -28,7 +29,7 @@ class _HomeState extends State<MainActivity> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()=>exitDialog(context),
+      onWillPop: () => exitDialog(context),
       child: Scaffold(
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
@@ -43,12 +44,10 @@ class _HomeState extends State<MainActivity> {
             Profile(),
             //Settings(),
 
-
             ///hasilkan(),
             //Favorites(),
           ],
         ),
-
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).primaryColor,
           selectedItemColor: Theme.of(context).accentColor,
@@ -68,10 +67,7 @@ class _HomeState extends State<MainActivity> {
                   color: Colors.grey[500],
                 ),
               ),
-
             ),
-
-
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.dashboard,
@@ -86,7 +82,6 @@ class _HomeState extends State<MainActivity> {
                 ),
               ),
             ),
-
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.add_box,
@@ -100,7 +95,6 @@ class _HomeState extends State<MainActivity> {
                 ),
               ),
             ),
-
             BottomNavigationBarItem(
               icon: Icon(
                 //Icons.settings,
@@ -115,7 +109,6 @@ class _HomeState extends State<MainActivity> {
                 ),
               ),
             ),
-
             BottomNavigationBarItem(
               icon: Icon(
                 //Icons.settings,
@@ -134,14 +127,11 @@ class _HomeState extends State<MainActivity> {
           onTap: navigationTapped,
           currentIndex: _page,
         ),
-
       ),
     );
   }
 
-
-
-  exitDialog(BuildContext context){
+  exitDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => CustomAlertDialog(
@@ -160,9 +150,7 @@ class _HomeState extends State<MainActivity> {
                   fontSize: 18,
                 ),
               ),
-
               SizedBox(height: 25),
-
               Text(
                 "Do you really want to quit?",
                 style: TextStyle(
@@ -170,13 +158,10 @@ class _HomeState extends State<MainActivity> {
                   fontSize: 16,
                 ),
               ),
-
               SizedBox(height: 40),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-
                   Container(
                     height: 40,
                     width: 130,
@@ -191,7 +176,7 @@ class _HomeState extends State<MainActivity> {
                           fontSize: 16,
                         ),
                       ),
-                      onPressed: ()=> exit(0),
+                      onPressed: () => exit(0),
                       color: Theme.of(context).accentColor,
                     ),
                   ),
@@ -202,7 +187,8 @@ class _HomeState extends State<MainActivity> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
-                      borderSide: BorderSide(color: Theme.of(context).accentColor),
+                      borderSide:
+                          BorderSide(color: Theme.of(context).accentColor),
                       child: Text(
                         "No",
                         style: TextStyle(
@@ -210,7 +196,7 @@ class _HomeState extends State<MainActivity> {
                           fontSize: 16,
                         ),
                       ),
-                      onPressed: ()=>Navigator.pop(context),
+                      onPressed: () => Navigator.pop(context),
                       color: Colors.white,
                     ),
                   ),
@@ -231,13 +217,11 @@ class _HomeState extends State<MainActivity> {
   }
 
   void navigationTapped(int page) {
-    if(page == 2.0){
-      Provider.of<FavoritesProvider>(context, listen: false)
-          .getFeed();
+    if (page == 2.0) {
+      Provider.of<FavoritesProvider>(context, listen: false).getFeed();
       _pageController.jumpToPage(page);
-
-    }else{
-    _pageController.jumpToPage(page);
+    } else {
+      _pageController.jumpToPage(page);
     }
   }
 

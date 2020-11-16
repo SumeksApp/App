@@ -24,7 +24,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   SharedPref sharedPref = SharedPref();
   static String isLogin;
-  String _name;
+  static String _name;
   static String _profile;
 
   _ProfileState() {
@@ -100,144 +100,160 @@ class _ProfileState extends State<Profile> {
           "Dompet Saya",
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 20.0),
-            child: new Stack(fit: StackFit.loose, children: <Widget>[
-              new Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Container(
-                    width: 140.0,
-                    height: 140.0,
-                    child: ClipOval(
-                      child: CachedNetworkImage(
-                        imageUrl:_profile == null ? "" : Api.baseURL + _profile ,
-                        placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Image.asset(
-                          "assets/images/user.png",
-                          fit: BoxFit.cover,
-                          height: 140.0,
-                          width: 140.0,
-                        ),
-                        fit: BoxFit.cover,
-                        height: 140.0,
-                        width: 140.0,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+      body: ListView(
+        children: [
+          Column(
+            children: <Widget>[
               Padding(
-                  padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                  child: new Row(
+                padding: EdgeInsets.only(top: 20.0),
+                child: new Stack(fit: StackFit.loose, children: <Widget>[
+                  new Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      new CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 25.0,
-                        child: new Icon(
-                          isLogin == "1" ? Icons.settings : Icons.lock_outline,
-                          color: Colors.white,
+                      new Container(
+                        width: 140.0,
+                        height: 140.0,
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                _profile == null ? "" : Api.baseURL + _profile,
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) => Image.asset(
+                              "assets/images/user.png",
+                              fit: BoxFit.cover,
+                              height: 140.0,
+                              width: 140.0,
+                            ),
+                            fit: BoxFit.cover,
+                            height: 140.0,
+                            width: 140.0,
+                          ),
                         ),
-                      )
+                      ),
+                    ],
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(top: 90.0, right: 100.0),
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new CircleAvatar(
+                            backgroundColor: Colors.red,
+                            radius: 25.0,
+                            child: new Icon(
+                              isLogin == "1"
+                                  ? Icons.settings
+                                  : Icons.lock_outline,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      )),
+                ]),
+              ),
+              Padding(
+                  padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          new Text(
+                            'Hi! $_name',
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ],
                   )),
-            ]),
-          ),
-          Padding(
-              padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 25.0),
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  new Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      new Text(
-                        'Hi! $_name',
-                        style: TextStyle(
-                            fontSize: 18.0, fontWeight: FontWeight.bold),
+              ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  if (items[index]['title'] == "Dark Mode") {
+                    return SwitchListTile(
+                      secondary: Icon(
+                        items[index]['icon'],
                       ),
-                    ],
-                  ),
-                ],
-              )),
-          ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: items.length,
-            itemBuilder: (BuildContext context, int index) {
-              if (items[index]['title'] == "Dark Mode") {
-                return SwitchListTile(
-                  secondary: Icon(
-                    items[index]['icon'],
-                  ),
-                  title: Text(
-                    items[index]['title'],
-                  ),
-                  value: Provider.of<AppProvider>(context).theme ==
-                          Constants.lightTheme
-                      ? false
-                      : true,
-                  onChanged: (v) {
-                    if (v) {
-                      Provider.of<AppProvider>(context, listen: false)
-                          .setTheme(Constants.darkTheme, "dark");
-                    } else {
-                      Provider.of<AppProvider>(context, listen: false)
-                          .setTheme(Constants.lightTheme, "light");
-                    }
-                  },
-                );
-              }
-              if (items[index]['title'] == "Logout" ||
-                  items[index]['title'] == "LogIn") {
-                items[index]['title'] = isLogin == "0" ? "LogIn" : "Logout";
-              }
-              return ListTile(
-                onTap: () {
-                  if (items[index]['title'] == "info") {
-                  } else if (items[index]['title'] == "Logout") {
-                    sharedPref.remove("SrNo");
-                    sharedPref.remove("isLogin");
-                    sharedPref.remove("name");
-                    sharedPref.remove("phone");
-                    sharedPref.remove("profile");
-                    loadSharedPrefs();
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                        content: new Text("You have securely logged out!"),
-                        duration: const Duration(milliseconds: 500)));
-                  } else if (items[index]['title'] == "LogIn") {
-                    _sendToLoginPage();
-                  } else {
-                    Provider.of<FavoritesProvider>(context, listen: false)
-                        .getFeed();
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.rightToLeft,
-                        child: items[index]['page'],
+                      title: Text(
+                        items[index]['title'],
                       ),
+                      value: Provider.of<AppProvider>(context).theme ==
+                              Constants.lightTheme
+                          ? false
+                          : true,
+                      onChanged: (v) {
+                        if (v) {
+                          Provider.of<AppProvider>(context, listen: false)
+                              .setTheme(Constants.darkTheme, "dark");
+                        } else {
+                          Provider.of<AppProvider>(context, listen: false)
+                              .setTheme(Constants.lightTheme, "light");
+                        }
+                      },
                     );
                   }
+
+                  if (items[index]['title'] == "Logout" ||
+                      items[index]['title'] == "LogIn") {
+                    items[index]['title'] = isLogin == "0" ? "LogIn" : "Logout";
+                  }
+
+                  return ListTile(
+                    onTap: () {
+                      if (items[index]['title'] == "info") {
+                      } else if (items[index]['title'] == "Logout") {
+                        sharedPref.remove("SrNo");
+
+                        sharedPref.remove("isLogin");
+
+                        sharedPref.remove("name");
+
+                        sharedPref.remove("phone");
+
+                        sharedPref.remove("profile");
+
+                        loadSharedPrefs();
+
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                            content: new Text("You have securely logged out!"),
+                            duration: const Duration(milliseconds: 500)));
+                      } else if (items[index]['title'] == "LogIn") {
+                        _sendToLoginPage();
+                      } else {
+                        Provider.of<FavoritesProvider>(context, listen: false)
+                            .getFeed();
+
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: items[index]['page'],
+                          ),
+                        );
+                      }
+                    },
+                    leading: Icon(
+                      items[index]['icon'],
+                    ),
+                    title: Text(
+                      items[index]['title'],
+                    ),
+                  );
                 },
-                leading: Icon(
-                  items[index]['icon'],
-                ),
-                title: Text(
-                  items[index]['title'],
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider();
-            },
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider();
+                },
+              ),
+            ],
           ),
         ],
       ),

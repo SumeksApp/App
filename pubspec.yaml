@@ -17,8 +17,10 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+ 
   flutter:
     sdk: flutter
+ 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -36,15 +38,11 @@ dependencies:
   http: ^0.12.1
   image_picker: ^0.6.6+1
   pin_code_fields: ^3.0.0
+  jiffy: ^3.0.1
+  url_launcher: ^5.4.0  
+
 
 dev_dependencies:
-#  flutter_launcher_icons: "^0.7.2"
-#
-#  flutter_icons:
-#    android: "launcher_icon"
-#    ios: true
-#    image_path: "assets/images/logosumeksdigital.png"
-
   flutter_test:
     sdk: flutter
 
@@ -71,6 +69,7 @@ flutter:
     - assets/images/user.png
     - assets/images/tekssumeks.png
     - assets/images/fotosplash.png
+    - assets/images/Sumeks.png
     - assets/icons/icon_menu.png
     - assets/icons/icon_saldo.png
     - assets/icons/icon_scan.png
