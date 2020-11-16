@@ -1,5 +1,4 @@
-# classic_flutter_news
-
+# E-paper
 A new Flutter application.
 
 ## Getting Started
