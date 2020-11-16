@@ -49,13 +49,11 @@ class Details extends StatelessWidget {
                       : Theme.of(context).iconTheme.color,
                 ),
               ),
-
               IconButton(
                 onPressed: () {
                   Share.share(
                     " ${entry.title}. Di ${Constants.appName}. \n\n Download App @ https://play.google.com/store/apps/details?id=${Constants.appPackage}",
-                    subject:'${entry.title}',
-
+                    subject: '${entry.title}',
                   );
                 },
                 icon: Icon(
@@ -198,10 +196,8 @@ class Details extends StatelessWidget {
                 linkStyle: const TextStyle(
                   color: Colors.redAccent,
                 ),
-                onLinkTap: (url) {
-                },
-                onImageTap: (src) {
-                },
+                onLinkTap: (url) {},
+                onImageTap: (src) {},
               ),
               SizedBox(
                 height: 15,
@@ -219,15 +215,6 @@ class Details extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    stops: [0.015, 0.015],
-                    colors: [
-                      Color.fromRGBO(209, 2, 99, 1),
-                      Theme.of(context).backgroundColor
-                    ],
-                  ),
                 ),
               ),
               Divider(
@@ -255,7 +242,8 @@ class Details extends StatelessWidget {
                             img: entry.coverImage,
                             title: entry.title,
                             author: entry.category[0],
-                            desc: entry.summary.replaceAll(RegExp(r"<[^>]*>"), ''),
+                            desc: entry.summary
+                                .replaceAll(RegExp(r"<[^>]*>"), ''),
                             entry: entry,
                           ),
                         );

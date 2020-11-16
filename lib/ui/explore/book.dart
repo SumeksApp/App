@@ -48,15 +48,6 @@ class Book extends StatelessWidget {
                             ),
                           ],
                         ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            stops: [0.015, 0.015],
-                            colors: [
-                              Color.fromRGBO(209, 2, 99, 1),
-                              Theme.of(context).backgroundColor
-                            ],
-                          ),
-                        ),
                       ),
                       SizedBox(
                         height: 5,

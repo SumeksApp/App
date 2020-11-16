@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-
 
 import '../podo/category.dart';
 import '../providers/home_provider.dart';
@@ -15,96 +13,85 @@ import '../widgets/book_list_item.dart';
 import '../widgets/book_card.dart';
 import '../widgets/spotlight.dart';
 
-
 class Periklanan extends StatelessWidget {
   @override
-
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
-        builder: (BuildContext context, HomeProvider homeProvider, Widget child) {
-      return Scaffold(
-        body: homeProvider.loading
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : RefreshIndicator(
-          onRefresh: () => homeProvider.getFeeds(),
-          child: ListView(
-            children: <Widget>[
-              Container(
+      builder: (BuildContext context, HomeProvider homeProvider, Widget child) {
+        return Scaffold(
+          body: homeProvider.loading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : RefreshIndicator(
+                  onRefresh: () => homeProvider.getFeeds(),
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
 //                child: new ListView(
 //                  physics: ClampingScrollPhysics(),
 //                  children: <Widget>[
-                        padding: EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
-                        color: Colors.white,
-                        child: new Column(
-                          children: <Widget>[
-                            _menuatas(),
-                            //_buildGojekServicesMenu(),
-                          ],
-                        )),
+                          padding: EdgeInsets.only(
+                              left: 16.0, right: 16.0, top: 16.0),
+                          color: Colors.white,
+                          child: new Column(
+                            children: <Widget>[
+                              _menuatas(),
+                              //_buildGojekServicesMenu(),
+                            ],
+                          )),
 //                  ],
 //                ),
 
 //              getSearchBarUI(context),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    stops: [0.015, 0.015],
-                    colors: [
-                      Color.fromRGBO(209, 2, 99, 1),
-                      Theme.of(context).backgroundColor
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              "Rekomendasi Baru",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: homeProvider.recent.feed.entry.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          Entry entry = homeProvider.recent.feed.entry[index];
+
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5),
+                            child: BookListItem(
+                              img: entry.coverImage,
+                              title: entry.title,
+                              author: entry.category[0],
+                              desc: entry.summary
+                                  .replaceAll(RegExp(r"<[^>]*>"), ''),
+                              entry: entry,
+                            ),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Rekomendasi Baru",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: homeProvider.recent.feed.entry.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Entry entry = homeProvider.recent.feed.entry[index];
 
-                  return Padding(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    child: BookListItem(
-                      img: entry.coverImage,
-                      title: entry.title,
-                      author: entry.category[0],
-                      desc: entry.summary
-                          .replaceAll(RegExp(r"<[^>]*>"), ''),
-                      entry: entry,
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ),
-
-
-        //backgroundColor: GojekPalette.grey,
+          //backgroundColor: GojekPalette.grey,
 //        body: new Container(
 //          child: new ListView(
 //            physics: ClampingScrollPhysics(),
@@ -121,43 +108,28 @@ class Periklanan extends StatelessWidget {
 //            ],
 //          ),
 //        ),
-      );
-        },
+        );
+      },
     );
   }
 }
+
 Widget _menuatas() {
   return new Container(
       height: 120.0,
-      decoration: new BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [const Color(0xff3164bd), const Color(0xff295cb5)],
-          ),
-          borderRadius: new BorderRadius.all(new Radius.circular(3.0))),
       child: new Column(
         children: <Widget>[
           new Container(
             padding: EdgeInsets.all(12.0),
-            decoration: new BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [const Color(0xff3164bd), const Color(0xff295cb5)],
-                ),
-                borderRadius: new BorderRadius.only(
-                    topLeft: new Radius.circular(3.0),
-                    topRight: new Radius.circular(3.0))),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 new Text(
-                  "Temukan Bisnis, Job Fair, Society & ADV Dan Iklan Baris", textAlign: TextAlign.center,
+                  "Temukan Bisnis, Job Fair, Society & ADV Dan Iklan Baris",
+                  textAlign: TextAlign.center,
                   style: new TextStyle(
                       fontSize: 14.0,
                       color: Colors.white,
-
                       fontFamily: "NeoSansBold"),
                 ),
 //                Text(
@@ -197,7 +169,10 @@ Widget _menuatas() {
                     ),
                     new Text(
                       "BISNIS",
-                      style: TextStyle(color: Colors.white, fontSize: 12.0,fontFamily: "NeoSansBold"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                          fontFamily: "NeoSansBold"),
                     )
                   ],
                 ),
@@ -214,7 +189,10 @@ Widget _menuatas() {
                     ),
                     new Text(
                       "JOB FAIR",
-                      style: TextStyle(color: Colors.white, fontSize: 12.0,fontFamily: "NeoSansBold"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                          fontFamily: "NeoSansBold"),
                     )
                   ],
                 ),
@@ -231,7 +209,10 @@ Widget _menuatas() {
                     ),
                     new Text(
                       "SOCIETY",
-                      style: TextStyle(color: Colors.white, fontSize: 12.0,fontFamily: "NeoSansBold"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                          fontFamily: "NeoSansBold"),
                     )
                   ],
                 ),
@@ -248,7 +229,10 @@ Widget _menuatas() {
                     ),
                     new Text(
                       "IKLAN",
-                      style: TextStyle(color: Colors.white, fontSize: 12.0,fontFamily: "NeoSansBold"),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12.0,
+                          fontFamily: "NeoSansBold"),
                     )
                   ],
                 ),
@@ -273,4 +257,3 @@ Widget _menuatas() {
 //                return new Text("Gojek Menu");
 //              })));
 //}
-
